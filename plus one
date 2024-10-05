@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        
+        // Traverse the digits array backwards
+        for (int i = n - 1; i >= 0; --i) {
+            if (digits[i] < 9) {
+                digits[i]++;  // Just increment if the digit is less than 9
+                return digits;
+            }
+            // If the digit is 9, set it to 0 and propagate the carry
+            digits[i] = 0;
+        }
+        
+        // If we finished the loop, that means all digits were 9.
+        // We need to add a leading 1.
+        digits.insert(digits.begin(), 1);
+        return digits;
+    }
+};
