@@ -1,0 +1,52 @@
+/*
+Author: Anisha
+Question: We are given an array of integers, and out goal is to sort the array using the Counting Sort algorithm.
+
+Intuition:
+As Counting Sort is a non-comparative integer sorting algorithm, it works by counting the occurrences of each unique element in the input array, using this count to determine the positions of elements in the sorted array. This approach avoids traditional comparison-based sorting, making it efficient when the range of input values is not too large compared to the size of the array.
+
+Approach:
+1) Initializing Arrays:
+    c[] array will store the count of each integer (ranging from 0 to the largest element in the array).
+    ans[] array will store the sorted version of the input array.
+2) Count Occurrences: For each element in the array A[], increment its corresponding index in the c[] array.
+3) Compute Cumulative Count: Starting from the second element of c[], modify each value to store the cumulative count of elements up to that index.
+4) Sort the Array: Traverse the input array A[] in reverse order, using the cumulative count in c[] to place each element in the correct position in the sorted array ans[].
+5) Return Sorted Array: The sorted array is returned.
+
+TIME COMPLEXITY:
+O(n+k) 
+where n is size of input array
+k is largest element in the array
+
+SPACE COMPLEXITY:
+O(n+k)
+where n is size of input array
+k is the range of the elements
+
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+int* countingsort(int A[],int size,int largest){
+    int *c=(int*)calloc(sizeof(int*),largest+1);
+    int *ans=(int*)calloc(sizeof(int*),size);
+    for(int i=0;i<=size-1;i++){
+        c[A[i]]++;
+    }
+    for(int i=1;i<=largest;i++){
+        c[i]=c[i]+c[i-1];
+    }
+    for(int i=size-1;i>=0;i--){
+        ans[c[A[i]]-1]=A[i];
+        c[A[i]]--;
+    }
+return ans;
+}
+int main(){
+    int A[]={1,4,2,8,5,3,6};
+    int* ans=countingsort(A,7,8);
+    for(int i=0;i<7;i++){
+        printf("%d ",ans[i]);
+    }
+}
