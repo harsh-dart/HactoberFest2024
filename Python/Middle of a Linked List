@@ -1,0 +1,20 @@
+def findMiddle(head):
+    temp=head
+    midnode=head
+    i=1
+    length=0
+    while temp is not None:
+        length+=1
+        temp=temp.next
+    if (length%2!=0):
+        mid=(length+1)/2
+        while i<mid:
+            midnode=midnode.next
+            i+=1
+        return midnode
+    else:
+        mid=(length+2)/2
+        while i<mid:
+            midnode=midnode.next
+            i+=1
+        return midnode
