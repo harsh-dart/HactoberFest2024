@@ -56,7 +56,7 @@ function jump() {
         } else {
             jumpHeight += 5;
             racer.style.bottom = (50 + jumpHeight) + 'px';
-        }
+        }//
     }, 20);
 }
 
