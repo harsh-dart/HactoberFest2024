@@ -1,18 +1,51 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: grey;
+    
+}
+.buttn{
+    margin: auto;
+    width: max-content;
+    margin-top: -50px;
+    
+}
+.result{
+    background-color: antiquewhite;
+    margin-top: -50px;
+    
+}
+.btn{
+    padding: 10px 30px;
+ 
+    font-weight: 800;
+    font-size: 37px;
+    background-color: aquamarine;
+    border-radius: 23px;
+    box-shadow: orange 1px 1px  12px 2px;
+}
+.btn:hover{
+    background-color: rgb(248, 82, 22);
+}
+.head{
+
+    color: white;
+    text-align: center;
+    height: 200px;
+    margin-top: -70px;
+    background-color: black;
 }
 
 h1 {
+    
     font-family: cursive;
-    font-size: 70px;
-    color: black;
+    font-size: 100px;
     font-weight: 300;
+    
+}
+.winningmessage{
+    background-color: rgb(254, 38, 0);
+    font-size: 50px;
     text-align: center;
-    text-decoration: underline;
-    margin-top: 0;
-    padding-top: 0;
 }
 
 .container {
@@ -20,8 +53,9 @@ h1 {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 30px;
-    margin: 20px;
+    
+   
+
     min-height: 40vh;
     gap: 70px;
 }
@@ -35,6 +69,8 @@ h1 {
     align-items: center;
     margin: 30px;
     padding: 20px;
+    border-radius: 12px;
+    background-color: rgb(212, 138, 138);
     border: 3px solid black;
 }
 
@@ -86,7 +122,7 @@ h6 {
 @media (min-width: 768px) and (max-width: 991.98px) {
     .container {
         padding: 15px;
-        margin: 15px;
+        margin-top: 10px;
         gap: 30px;
     }
 
@@ -114,13 +150,13 @@ h6 {
 @media (min-width: 1200px) {
     .container {
         padding: 30px;
-        margin: 30px;
+        margin-top: 0px;
         gap: 60px;
     }
 
     .dice1,
     .dice2 {
-        margin: 30px;
+        margin-top: 0px;
         padding: 30px;
     }
 }
