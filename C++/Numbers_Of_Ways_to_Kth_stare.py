@@ -1,3 +1,9 @@
+#This is a hard Leetcode Problem which uses a concept of memoization in recursion . Here is the question :
+# https://leetcode.com/problems/find-number-of-ways-to-reach-the-k-th-stair/description
+
+# this is the solution to the above leetcode problem
+
+
 def numberOfWays(k: int) -> int:
     # dp[i] will store the number of ways to reach stair i
     dp = [0] * (k + 1)
