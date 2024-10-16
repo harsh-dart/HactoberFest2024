@@ -2,16 +2,19 @@ class Solution:
     def dividePlayers(self, skill: List[int]) -> int:
         # Step 1: Sort the skill array
         skill.sort()
-        
-        total_skill = skill[0] + skill[-1]  # Required sum for each pair
+
+        # Initialize pointers and the required chemistry sum
+        left, right = 0, len(skill) - 1
+        total_skill = skill[left] + skill[right]  # Target sum for each pair
         chemistry_sum = 0
 
         # Step 2: Pair players using two pointers
-        for i in range(len(skill) // 2):
-            # Check if the sum of current pair matches the required total_skill
-            if skill[i] + skill[-i - 1] != total_skill:
+        while left < right:
+            current_sum = skill[left] + skill[right]
+            if current_sum != total_skill:
                 return -1  # Invalid configuration, return -1
-            # Calculate the chemistry (product of pair) and add it to the sum
-            chemistry_sum += skill[i] * skill[-i - 1]
+            chemistry_sum += skill[left] * skill[right]  # Calculate chemistry
+            left += 1
+            right -= 1
 
         return chemistry_sum  # Return total chemistry
