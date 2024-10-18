@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+input {
+    padding: 10px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#message {
+    font-size: 1.3rem;
+    margin-top: 20px;
+    color: #333;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Guess the Number Game</h1>
+        <p>Guess a number between <span id="lower-bound">1</span> and <span id="upper-bound">100</span>. You have <span id="attempts">7</span> attempts left.</p>
+        <input type="number" id="guessInput" placeholder="Enter your guess" min="1" max="100">
+        <button id="guessButton">Submit Guess</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const guessButton = document.getElementById('guessButton');
+        const message = document.getElementById('message');
+        const attemptsDisplay = document.getElementById('attempts');
+
+        guessButton.addEventListener('click', () => {
+            const guess = document.getElementById('guessInput').value;
+
+            fetch('/guess', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `guess=${guess}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                message.textContent = data.message;
+                attemptsDisplay.textContent = data.attempts_left;
+            });
+        });
+    </script>
+</body>
+</html>
