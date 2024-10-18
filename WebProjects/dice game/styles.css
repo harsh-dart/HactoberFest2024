@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: grey;
+    color: white; /* Better contrast against grey background */
 }
 
 h1 {
@@ -11,8 +12,8 @@ h1 {
     font-weight: 300;
     text-align: center;
     text-decoration: underline;
-    margin-top: 0;
-    padding-top: 0;
+    margin: 0; /* Simplified */
+    padding-top: 20px; /* Added some space at the top */
 }
 
 .container {
@@ -26,11 +27,9 @@ h1 {
     gap: 70px;
 }
 
-.dice1,
-.dice2 {
+.dice1, .dice2 {
     display: flex;
     flex-direction: column;
-    object-fit: cover;
     justify-content: center;
     align-items: center;
     margin: 30px;
@@ -38,20 +37,17 @@ h1 {
     border: 3px solid black;
 }
 
-.dice1 img,
-.dice2 img {
+.dice1 img, .dice2 img {
     height: 150px;
     width: 150px;
     border-radius: 5%;
 }
 
-.dice1 p,
-.dice2 p,
-h6 {
+.dice1 p, .dice2 p, h6 {
     font-family: cursive;
     font-size: 24px;
     text-align: center;
-    margin: 10px 0 0 0;
+    margin: 10px 0 0; /* Removed redundant left margin */
     padding: 10px;
 }
 
@@ -62,8 +58,7 @@ h6 {
         gap: 10px;
     }
 
-    .dice1,
-    .dice2 {
+    .dice1, .dice2 {
         margin: 5px;
         padding: 5px;
     }
@@ -76,8 +71,7 @@ h6 {
         gap: 20px;
     }
 
-    .dice1,
-    .dice2 {
+    .dice1, .dice2 {
         margin: 10px;
         padding: 10px;
     }
@@ -90,8 +84,7 @@ h6 {
         gap: 30px;
     }
 
-    .dice1,
-    .dice2 {
+    .dice1, .dice2 {
         margin: 15px;
         padding: 15px;
     }
@@ -104,8 +97,7 @@ h6 {
         gap: 40px;
     }
 
-    .dice1,
-    .dice2 {
+    .dice1, .dice2 {
         margin: 20px;
         padding: 20px;
     }
@@ -118,8 +110,7 @@ h6 {
         gap: 60px;
     }
 
-    .dice1,
-    .dice2 {
+    .dice1, .dice2 {
         margin: 30px;
         padding: 30px;
     }
