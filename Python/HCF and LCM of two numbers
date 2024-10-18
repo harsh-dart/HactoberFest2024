@@ -1,0 +1,18 @@
+def calculate_hcf(num1, num2):
+    while num2:
+        num1, num2 = num2, num1 % num2
+    return num1
+
+def calculate_lcm(num1, num2):
+    hcf = calculate_hcf(num1, num2)
+    lcm = abs(num1 * num2) // hcf
+    return lcm
+
+number1 = 12
+number2 = 18
+
+hcf = calculate_hcf(number1, number2)
+lcm = calculate_lcm(number1, number2)
+
+print(f"HCF of {number1} and {number2} is: {hcf}")
+print(f"LCM of {number1} and {number2} is: {lcm}")
