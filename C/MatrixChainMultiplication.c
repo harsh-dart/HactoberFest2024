@@ -3,37 +3,30 @@
 #include <limits.h>
 
 void MatrixChainMultiplication(int p[], int n) {
+    // Initialize matrices m and s
     int m[n][n];
     int s[n][n];
 
-     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-           m[i][j]=0;
-        }
-     }
+    // Setting the diagonal to 0 since cost of multiplying one matrix is zero
+    for (int i = 1; i < n; i++) {
+        m[i][i] = 0; // Cost of multiplying one matrix is zero
+    }
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-           s[i][j]=0;
+    // Calculate minimum multiplications
+    for (int d = 1; d < n; d++) {  // The number of matrices to be multiplied
+        for (int i = 1; i < n - d; i++) { // Starting matrix
+            int j = i + d; // Ending Matrix
+            m[i][j] = INT_MAX; // Set to maximum value to find the minimum
+            for (int k = i; k < j; k++) {
+                int q = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j]; // Formula for MCM
+                if (q < m[i][j]) { // Comparing the number of multiplications
+                    m[i][j] = q; // Assigning the minimum multiplications
+                    s[i][j] = k; // Storing the split position
+                }
+            }
         }
     }
 
-
-int j,q,min;
-     for(int d=1;d<n-1;d++){  // The number of matrices to be multiplied
-        for(int i=1;i<n-d;i++){ // Starting matrix
-            j=i+d; // Ending Matrix
-            min=INT_MAX; // Setting minimum as a random large value to compare
-            for(int k=i;k<=j-1;k++){
-                q=m[i][k]+m[k+1][j]+p[i-1]*p[k]*p[j]; // Formula for MCM
-                if(q<min){ // Comparing the number of multiplications with the current minimum
-                    min=q;
-                    s[i][j]=k; // Assigning values in the K matrix to specify the way in which matrices are multiplied
-                }
-            }
-            m[i][j]=min; // Assigning the m matrix the minimum number of mulitplications possible value
-        }
-     }
     // Display the M matrix
     printf("M matrix:\n");
     for (int i = 1; i < n; i++) {
@@ -52,7 +45,7 @@ int j,q,min;
         printf("\n");
     }
 
-printf("\nMinimum number of multiplications is: %d\n\n ",m[1][n-1]);
+    printf("\nMinimum number of multiplications is: %d\n\n", m[1][n - 1]);
 }
 
 int main() {
@@ -60,8 +53,8 @@ int main() {
     printf("Enter the number of matrices you want to multiply: ");
     scanf("%d", &n);
 
-    int d[n + 1];
-    printf("Enter dimensions for each matrix(d1,d2,...,dn):\n");
+    int *d = (int *)malloc((n + 1) * sizeof(int)); // Allocate memory for dimensions
+    printf("Enter dimensions for each matrix (d1, d2, ..., dn):\n");
     for (int i = 0; i < n + 1; i++) {
         printf("Enter dimension #%d: ", i + 1);
         scanf("%d", &d[i]);
@@ -69,5 +62,6 @@ int main() {
 
     MatrixChainMultiplication(d, n + 1);
 
+    free(d); // Free the allocated memory for dimensions
     return 0;
 }
