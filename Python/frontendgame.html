@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Number Game</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .game-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    #instructions {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #666;
+    }
+    input[type="number"] {
+      padding: 10px;
+      width: 80%;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 2px solid #ddd;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #6a11cb;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2575fc;
+    }
+    #gameResult {
+      font-size: 1.2rem;
+      color: #333;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Guess the Number Game</h1>
+    <p id="instructions">Guess a number between 1 and 100</p>
+
+    <input type="number" id="userGuess" placeholder="Enter your guess" />
+    <button id="submitGuess">Submit Guess</button>
+
+    <p id="gameResult"></p>
+  </div>
+
+  <script>
+    document.getElementById('submitGuess').addEventListener('click', function () {
+      const guess = document.getElementById('userGuess').value;
+      if (guess) {
+        // Simulate an AJAX request to the Python backend
+        fetch('/guess', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ guess: guess }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('gameResult').textContent = data.message;
+          })
+          .catch(error => console.error('Error:', error));
+      } else {
+        document.getElementById('gameResult').textContent = 'Please enter a number!';
+      }
+    });
+  </script>
+</body>
+</html>
