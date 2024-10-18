@@ -32,7 +32,7 @@ ll lca(ll u, ll v) {
     }
 
     // Lift u up until it's the same depth as v
-    ll diff = depth[u] - depth[v]; // first we will bring them to the same level 
+    ll diff = depth[u] - depth[v];
     for (ll i = 0; i < LOG; i++) {
         if ((diff >> i) & 1) { // If the i-th bit of diff is set, lift u by 2^i
             u = up[u][i];
@@ -50,15 +50,15 @@ ll lca(ll u, ll v) {
     }
 
     // The parent of u (or v) is the LCA
-    return up[u][0]; // once up[u][i] == up[v][i] then keep subtracting i until it becomes 0
+    return up[u][0];
 }
 
 void run() {
     ll n, q;
     cin >> n >> q;
 
-    for(ll i=2;i<=n;i++){
-        ll u,v;
+    for (ll i = 1; i <= n - 1; i++) {
+        ll u, v;
         cin >> u >> v;
         adj[u].push_back(v);
         adj[v].push_back(u);
@@ -70,8 +70,9 @@ void run() {
     while (q--) {
         ll u, v;
         cin >> u >> v;
-        ll ans=abs(depth[u]-depth[lca(u,v)])+abs(depth[v]-depth[lca(u,v)]);
-        cout<<ans<<nl;
+        ll ancestor = lca(u, v);
+        ll ans = (depth[u] - depth[ancestor]) + (depth[v] - depth[ancestor]);
+        cout << ans << nl;
     }
 }
 
