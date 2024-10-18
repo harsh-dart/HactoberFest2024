@@ -1,87 +1,63 @@
-/* The main idea is to reverse the linked list, we try to changes the direction of the arrows or links. This in-place reversal allows us to efficiently transform the original list without using extra space.
+#include <iostream>
+using namespace std;
 
-1. At first we keep a pointer let's say "prev" before the start pointer pointing to null . A temporary node points to first node, a front pointer pointing to the first node itself
-
-2. Now we move forward using a while loop and along the way we point front to the current (temp) pointer's next.
-
-3. Then we point current pointers to the previous pointer which is pointing to null.
-
-4. Then we update previous pointer as the current pointer.
-
-5. Then we update current pointer or temp to the front node.
-
-And voilah! we've reversed a linked list inplace without using any extra space
-
-*/
 class Node {
 public:
-    
-
     int data;   
-    
     Node* next;      
 
-    
+    // Constructor with two parameters
     Node(int data1, Node* next1) {
         data = data1;
         next = next1;
     }
 
-    
+    // Constructor with one parameter (next defaults to nullptr)
     Node(int data1) {
         data = data1;
         next = nullptr;
     }
 };
 
+// Function to reverse the linked list
+Node* reverseLinkedList(Node *head) {
+    Node* temp = head;  
+    Node* prev = nullptr;  // Initializing the previous pointer to null
 
-Node* reverseLinkedList(Node *head)
-{
-   
-   Node* temp = head;  
-   
-   Node* prev = NULL;  
-   
-   
-   while(temp != NULL){  
-       
-       Node* front = temp->next;  
-       
-       temp->next = prev;  
-       
-       prev = temp;  
-       
-       temp = front; 
-   }
-   
-  
-   return prev;  
+    while (temp != nullptr) {  
+        Node* front = temp->next;  // Save the next node
+        temp->next = prev;  // Reverse the link
+        prev = temp;  // Move prev one step ahead
+        temp = front;  // Move temp one step ahead
+    }
+    return prev;  // prev will be the new head after reversal
 }
 
 // Function to print the linked list
 void printLinkedList(Node* head) {
     Node* temp = head;
     while (temp != nullptr) {
-        cout << temp->data << " ";
-        temp = temp->next;
+        cout << temp->data << " ";  // Print the current node's data
+        temp = temp->next;  // Move to the next node
     }
     cout << endl;
 }
 
 int main() {
-   
+    // Creating a linked list: 1 -> 3 -> 2 -> 4
     Node* head = new Node(1);
     head->next = new Node(3);
     head->next->next = new Node(2);
     head->next->next->next = new Node(4);
 
-  
+    // Print the original linked list
     cout << "Original Linked List: ";
     printLinkedList(head);
 
- 
+    // Reverse the linked list
     head = reverseLinkedList(head);
 
+    // Print the reversed linked list
     cout << "Reversed Linked List: ";
     printLinkedList(head);
 
