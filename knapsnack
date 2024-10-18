@@ -1,0 +1,98 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cassert>
+
+using namespace std;
+
+// Structure to represent an item in the knapsack
+struct Item {
+    int value, weight;
+
+    Item(int value, int weight) : value(value), weight(weight) {}
+};
+
+// 0/1 Knapsack: Dynamic Programming approach
+int knapsack01(int W, vector<Item>& items) {
+    int n = items.size();
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+
+    for (int i = 1; i <= n; i++) {
+        for (int w = 0; w <= W; w++) {
+            if (items[i - 1].weight <= w) {
+                dp[i][w] = max(items[i - 1].value + dp[i - 1][w - items[i - 1].weight], dp[i - 1][w]);
+            } else {
+                dp[i][w] = dp[i - 1][w];
+            }
+        }
+    }
+
+    return dp[n][W];
+}
+
+// Fractional Knapsack: Greedy approach
+double fractionalKnapsack(int W, vector<Item>& items) {
+    // Sort items by value-to-weight ratio
+    sort(items.begin(), items.end(), [](Item& a, Item& b) {
+        return (double)a.value / a.weight > (double)b.value / b.weight;
+    });
+
+    double totalValue = 0.0;
+    for (const auto& item : items) {
+        if (W >= item.weight) {
+            W -= item.weight;
+            totalValue += item.value;
+        } else {
+            totalValue += item.value * ((double)W / item.weight);
+            break;
+        }
+    }
+
+    return totalValue;
+}
+
+// Test cases to verify the correctness of the implementations
+void runTests() {
+    vector<Item> items1 = { {60, 10}, {100, 20}, {120, 30} };
+    int W1 = 50;
+
+    // Test 0/1 Knapsack
+    int expected01 = 220;
+    int result01 = knapsack01(W1, items1);
+    assert(result01 == expected01);
+    cout << "0/1 Knapsack test passed!" << endl;
+
+    // Test Fractional Knapsack
+    double expectedFractional = 240.0;
+    double resultFractional = fractionalKnapsack(W1, items1);
+    assert(resultFractional == expectedFractional);
+    cout << "Fractional Knapsack test passed!" << endl;
+
+    // Edge cases
+    vector<Item> emptyItems = {};
+    assert(knapsack01(10, emptyItems) == 0);
+    assert(fractionalKnapsack(10, emptyItems) == 0.0);
+
+    vector<Item> singleItem = { {100, 50} };
+    assert(knapsack01(50, singleItem) == 100);
+    assert(fractionalKnapsack(50, singleItem) == 100.0);
+
+    cout << "All tests passed!" << endl;
+}
+
+int main() {
+    // Run test cases
+    runTests();
+
+    // Example usage
+    vector<Item> items = { {60, 10}, {100, 20}, {120, 30} };
+    int capacity = 50;
+
+    // 0/1 Knapsack
+    cout << "0/1 Knapsack Maximum Value: " << knapsack01(capacity, items) << endl;
+
+    // Fractional Knapsack
+    cout << "Fractional Knapsack Maximum Value: " << fractionalKnapsack(capacity, items) << endl;
+
+    return 0;
+}
