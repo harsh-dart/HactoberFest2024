@@ -1,8 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-void reverseArrayExtraArray(int arr[], int size)
-{
-    int reversedArr[size];
+void reverseArray(int arr[], int size) {
+    // Dynamically allocate memory for the reversed array
+    int *reversedArr = (int *)malloc(size * sizeof(int));
+    if (reversedArr == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return;
+    }
+
+    // Reverse the array
     for (int i = 0; i < size; i++) {
         reversedArr[i] = arr[size - i - 1];
     }
@@ -12,14 +19,17 @@ void reverseArrayExtraArray(int arr[], int size)
     for (int i = 0; i < size; i++) {
         printf("%d ", reversedArr[i]);
     }
+    printf("\n");
+
+    // Free the allocated memory
+    free(reversedArr);
 }
 
-int main()
-{
+int main() {
     int originalArr[] = { 1, 2, 3, 4, 5 };
     int size = sizeof(originalArr) / sizeof(originalArr[0]);
 
-    reverseArrayExtraArray(originalArr, size);
+    reverseArray(originalArr, size);
 
     return 0;
 }
