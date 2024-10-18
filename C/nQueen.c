@@ -34,30 +34,33 @@ bool solveNQueensUtil(int N, int board[N][N], int col) {
 
     for (int i = 0; i < N; i++) {
         if (isSafe(N, board, i, col)) {
-            board[i][col] = 1;
+            board[i][col] = 1; // Place the queen
 
-            if (solveNQueensUtil(N, board, col + 1))
+            if (solveNQueensUtil(N, board, col + 1)) // Recursively place the next queen
                 return true;
 
             board[i][col] = 0; // Backtrack
         }
     }
 
-    return false;
+    return false; // No valid position found
 }
 
 bool solveNQueens(int N) {
     int board[N][N];
 
+    // Initialize the board with 0
     for (int i = 0; i < N; i++)
         for (int j = 0; j < N; j++)
             board[i][j] = 0;
 
+    // Solve the N-Queens problem
     if (!solveNQueensUtil(N, board, 0)) {
         printf("Solution does not exist.\n");
         return false;
     }
 
+    // Print the solution
     printf("Solution for %d-Queens problem:\n", N);
     printSolution(N, board);
     return true;
@@ -68,6 +71,11 @@ int main() {
 
     printf("Enter the value of N: ");
     scanf("%d", &N);
+
+    if (N <= 0) {
+        printf("N must be a positive integer.\n");
+        return 1;
+    }
 
     solveNQueens(N);
 
