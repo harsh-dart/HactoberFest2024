@@ -1,30 +1,31 @@
-// this was the most common and highlt asked problem on FAANG Interviews from Leetcode
-// Approach - BackTracking 
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        
-        List<Integer> active = new ArrayList<>();
-        List<List<Integer>> ans = new ArrayList<>();
-        helper(0, target, candidates, active, ans);
-        return ans;
+        List<List<Integer>> results = new ArrayList<>();
+        findCombinations(0, target, candidates, new ArrayList<>(), results);
+        return results;
     }
-    static void helper (int index, int target, int[] candidates, List<Integer> active, List<List<Integer>> ans) {
 
-        if (target == 0) {
-            ans.add(new ArrayList<>(active));
+    private void findCombinations(int startIndex, int remainingTarget, int[] candidates, List<Integer> currentCombination, List<List<Integer>> results) {
+        // Base case: If the remaining target is zero, we found a valid combination
+        if (remainingTarget == 0) {
+            results.add(new ArrayList<>(currentCombination));
             return;
         }
+        
+        // Iterate over candidates starting from startIndex
+        for (int i = startIndex; i < candidates.length; i++) {
+            // If the candidate is greater than the remaining target, skip it
+            if (candidates[i] > remainingTarget) {
+                continue; // (Optional) Early exit for optimization if candidates are sorted
+            }
 
-        if (index == candidates.length) {
-            return;
+            // Include the candidate and explore further
+            currentCombination.add(candidates[i]);
+            findCombinations(i, remainingTarget - candidates[i], candidates, currentCombination, results); // Not incrementing i allows the same element to be reused
+            currentCombination.remove(currentCombination.size() - 1); // Backtrack
         }
-
-        if (candidates[index] <= target) {
-            active.add(candidates[index]);
-            helper (index, target - candidates[index], candidates, active, ans);
-            active.remove(active.size() - 1);
-        }
-        helper (index + 1, target, candidates, active, ans);
     }
 }
