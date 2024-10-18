@@ -1,17 +1,30 @@
+const rollButton = document.getElementById('rollButton'); 
 let image1 = document.querySelector(".dice1 img");
 let image2 = document.querySelector(".dice2 img");
+
+rollButton.addEventListener('click', () => {
 let num1=Math.floor(Math.random()*6+1);
 let newsrc1="images/"+num1+".jpg";
 image1.setAttribute("src",newsrc1);
+
+
 let num2=Math.floor(Math.random()*6+1);
 let newsrc2="images/"+num2+".jpg";
 image2.setAttribute("src",newsrc2);
+
+const existingMessage = document.querySelector(".winningmessage");
+if (existingMessage) {
+    existingMessage.remove();
+}
+
 let el = document.createElement("div"); 
 el.classList.add("winningmessage");
 el.style.backgroundColor = "yellow";
 el.style.fontFamily = "cursive";
 el.style.fontSize = "50px";
 el.style.textAlign = "center";
+
+
 document.body.appendChild(el);
 if (num1 > num2) {
     el.innerHTML = "Player 1 is the winner"; 
@@ -20,3 +33,4 @@ if (num1 > num2) {
 } else {
     el.innerHTML = "It is a draw"; 
 }
+});
