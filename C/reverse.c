@@ -1,25 +1,48 @@
-#include <stdio.h>
+# Game settings
+SIZE = 400
+GRID_LEN = 4
+GRID_PADDING = 10
 
-void reverseArrayExtraArray(int arr[], int size)
-{
-    int reversedArr[size];
-    for (int i = 0; i < size; i++) {
-        reversedArr[i] = arr[size - i - 1];
-    }
+# Colors
+BACKGROUND_COLOR_GAME = "#92877d"
+BACKGROUND_COLOR_CELL_EMPTY = "#9e948a"
 
-    // Print reversed array
-    printf("Reversed Array: ");
-    for (int i = 0; i < size; i++) {
-        printf("%d ", reversedArr[i]);
-    }
+# Background colors for different tile values
+BACKGROUND_COLOR_DICT = {
+    2: "#eee4da", 4: "#ede0c8", 8: "#f2b179",
+    16: "#f59563", 32: "#f67c5f", 64: "#f65e3b",
+    128: "#edcf72", 256: "#edcc61", 512: "#edc850",
+    1024: "#edc53f", 2048: "#edc22e",
+    4096: "#eee4da", 8192: "#edc22e", 16384: "#f2b179",
+    32768: "#f59563", 65536: "#f67c5f",
 }
 
-int main()
-{
-    int originalArr[] = { 1, 2, 3, 4, 5 };
-    int size = sizeof(originalArr) / sizeof(originalArr[0]);
+# Cell colors for different tile values
+CELL_COLOR_DICT = {
+    2: "#776e65", 4: "#776e65", 8: "#f9f6f2", 16: "#f9f6f2",
+    32: "#f9f6f2", 64: "#f9f6f2", 128: "#f9f6f2",
+    256: "#f9f6f2", 512: "#f9f6f2", 1024: "#f9f6f2",
+    2048: "#f9f6f2",
+    4096: "#776e65", 8192: "#f9f6f2", 16384: "#776e65",
+    32768: "#776e65", 65536: "#f9f6f2",
+}
 
-    reverseArrayExtraArray(originalArr, size);
+# Font settings
+FONT = ("Verdana", 40, "bold")
 
-    return 0;
+# Key bindings
+KEY_BINDINGS = {
+    "UP": "'w'",
+    "DOWN": "'s'",
+    "LEFT": "'a'",
+    "RIGHT": "'d'",
+    "BACK": "'b'",
+    "UP_ALT": "'\\uf700'",
+    "DOWN_ALT": "'\\uf701'",
+    "LEFT_ALT": "'\\uf702'",
+    "RIGHT_ALT": "'\\uf703'",
+    "J": "'j'",
+    "K": "'k'",
+    "L": "'l'",
+    "H": "'h'",
 }
