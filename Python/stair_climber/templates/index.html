@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stair Climbing</title>
+    <link rel="stylesheet" href="../static/styles.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+    <h1>Calculate Ways to Reach the K-th Stair</h1>
+    <input type="number" id="k-value" placeholder="Enter stair number (k)" />
+    <button id="calculate-button">Calculate Ways</button>
+    <div id="result"></div>
+
+    <h2>Legend</h2>
+    <ul>
+        <li><strong>S</strong>: Stay on the current stair</li>
+        <li><strong>U</strong>: Move up to stair</li>
+        <li><strong>D</strong>: Move down to stair</li>
+    </ul>
+
+    <script>
+        document.getElementById('calculate-button').addEventListener('click', function() {
+            const k = document.getElementById('k-value').value;
+            fetch('/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ k: parseInt(k) })  // Parse to integer
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                if (data.ways_count) {
+                    resultDiv.innerHTML = `<strong>Number of ways to reach stair ${k}:</strong> ${data.ways_count}<br><strong>Ways:</strong><br>`;
+                    data.ways_list.forEach((way, index) => {
+                        resultDiv.innerHTML += `${index + 1}: ${way.join(' -> ')}<br>`;
+                    });
+                    resultDiv.style.display = 'block'; // Show the result div
+                } else if (data.error) {
+                    resultDiv.innerHTML = `<strong>Error:</strong> ${data.error}`;
+                    resultDiv.style.display = 'block'; // Show the result div even in case of an error
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 'An error occurred.';
+                document.getElementById('result').style.display = 'block'; // Show the result div in case of an error
+            });
+        });
+    </script>
+</body>
+</html>
