@@ -4,10 +4,12 @@ public class PowerUsingLoop {
         int exponent = 3;
         long result = 1;
 
+        // Calculate power using a loop
         for (int i = 1; i <= exponent; i++) {
             result *= base;
         }
 
+        // Print the result
         System.out.println("Result: " + result);
     }
 }
