@@ -1,33 +1,37 @@
-n = int(input("Enter the number of processes : "))
-#print(n)
-p = [0] * n
-bt = [0] * n
-wt = [0] * n
-tat = [0] * n
-su = [0] * n
-for i in range(n):
-    p[i] = i+1
-    bt[i] = int(input("Enter the burst time for process " + str(i+1) + ": "))
-    su[i] = int(input("System/User process (0/1) ? "))
+# Input the number of processes
+n = int(input("Enter the number of processes: "))
+processes = [0] * n
+burst_time = [0] * n
+waiting_time = [0] * n
+turnaround_time = [0] * n
+system_user = [0] * n
 
+# Input burst time and system/user type for each process
 for i in range(n):
-    for j in range(i+1, n):
-        if su[i] > su[j]:
-            p[i], p[j] = p[j], p[i]
-            bt[i], bt[j] = bt[j], bt[i]
-            su[i], su[j] = su[j], su[i]
+    processes[i] = i + 1
+    burst_time[i] = int(input(f"Enter the burst time for process {i + 1}: "))
+    system_user[i] = int(input("System/User process (0/1)? "))
 
-wtavg = 0
-tatavg = 0
+# Sort processes based on system/user type
+for i in range(n):
+    for j in range(i + 1, n):
+        if system_user[i] > system_user[j]:
+            processes[i], processes[j] = processes[j], processes[i]
+            burst_time[i], burst_time[j] = burst_time[j], burst_time[i]
+            system_user[i], system_user[j] = system_user[j], system_user[i]
+
+# Calculate waiting time and turnaround time
+waiting_time_avg = 0
+turnaround_time_avg = 0
 
 for i in range(1, n):
-    wt[i] = wt[i-1] + bt[i-1]
-    tat[i] = tat[i-1] + bt[i]
-    wtavg += wt[i]
-    tatavg += tat[i]
+    waiting_time[i] = waiting_time[i - 1] + burst_time[i - 1]
+    turnaround_time[i] = turnaround_time[i - 1] + burst_time[i]
+    waiting_time_avg += waiting_time[i]
+    turnaround_time_avg += turnaround_time[i]
 
-print("PROCESS\tSYSTEM/USER PROCESS\tBURST TIME\tWAITING TIME\tTURNAROUND TIME\n")
-
+# Print the results
+print("PROCESS\tSYSTEM/USER\tBURST TIME\tWAITING TIME\tTURNAROUND TIME")
 for i in range(n):
-    print(str(p[i]) + "\t\t" + str(su[i]) + "\t\t" + str(bt[i]) + "\t\t" + str(wt[i]) + "\t\t" + str(tat[i]))
+    print(f"{processes[i]}\t\t{system_user[i]}\t\t{burst_time[i]}\t\t{waiting_time[i]}\t\t{turnaround_time[i]}")
 
