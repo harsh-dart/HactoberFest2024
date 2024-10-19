@@ -35,7 +35,7 @@ def print_matrix(matrix):
     print()
 
 # Example 1
-matrix1 = [[1,1,1], [1,0,1], [1,1,1]]
+matrix1 = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
 print("Input:")
 print_matrix(matrix1)
 
@@ -44,7 +44,7 @@ print("Output:")
 print_matrix(matrix1)
 
 # Example 2
-matrix2 = [[0,1,2,0], [3,4,5,2], [1,3,1,5]]
+matrix2 = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]]
 print("Input:")
 print_matrix(matrix2)
 
