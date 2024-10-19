@@ -1,3 +1,8 @@
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
 class Solution {
 public:
     // Function to check if a string has duplicate characters using bitmask
@@ -12,17 +17,18 @@ public:
         return mask;
     }
 
-    // Recursive function to find the maximum length
-    int solve(int i, vector<int>& masks, int currentMask, int n, vector<string>& arr) {
+    // Recursive function to find the maximum length of unique characters
+    int solve(int i, vector<int>& masks, int currentMask, int n) {
         if (i >= n) 
             return __builtin_popcount(currentMask);  // Count the number of set bits (length of unique chars)
         
-        int include = 0;
-        int exclude = solve(i+1, masks, currentMask, n, arr);  // Exclude current string
+        // Exclude current string
+        int exclude = solve(i + 1, masks, currentMask, n);
 
-        // If no common characters between current mask and next string's mask
+        // Include current string if it has no common characters with currentMask
+        int include = 0;
         if (masks[i] != -1 && (currentMask & masks[i]) == 0) {
-            include = solve(i+1, masks, currentMask | masks[i], n, arr);  // Include current string
+            include = solve(i + 1, masks, currentMask | masks[i], n);  // Include current string
         }
 
         return max(include, exclude);
@@ -30,14 +36,14 @@ public:
 
     int maxLength(vector<string>& arr) {
         int n = arr.size();
-        vector<int> masks(n, 0);
-        
+        vector<int> masks(n);
+
         // Precompute bitmasks for all strings and eliminate those with duplicate characters
         for (int i = 0; i < n; ++i) {
             masks[i] = stringToBitmask(arr[i]);
         }
 
         // Start recursive solving with an empty mask (0)
-        return solve(0, masks, 0, n, arr);
+        return solve(0, masks, 0, n);
     }
 };
