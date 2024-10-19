@@ -3,38 +3,35 @@
 #include <limits.h>
 
 void MatrixChainMultiplication(int p[], int n) {
-    int m[n][n];
-    int s[n][n];
+    int m[n][n]; // Matrix to store minimum multiplications
+    int s[n][n]; // Matrix to store split positions
 
-     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-           m[i][j]=0;
-        }
-     }
-
+    // Initialize m and s matrices
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-           s[i][j]=0;
+            m[i][j] = 0;
+            s[i][j] = 0;
         }
     }
 
+    // Fill the m and s matrices
+    for (int d = 1; d < n - 1; d++) { // d is the chain length
+        for (int i = 1; i < n - d; i++) { // Starting matrix
+            int j = i + d; // Ending matrix
+            int min = INT_MAX; // Set minimum to a large value
 
-int j,q,min;
-     for(int d=1;d<n-1;d++){  // The number of matrices to be multiplied
-        for(int i=1;i<n-d;i++){ // Starting matrix
-            j=i+d; // Ending Matrix
-            min=INT_MAX; // Setting minimum as a random large value to compare
-            for(int k=i;k<=j-1;k++){
-                q=m[i][k]+m[k+1][j]+p[i-1]*p[k]*p[j]; // Formula for MCM
-                if(q<min){ // Comparing the number of multiplications with the current minimum
-                    min=q;
-                    s[i][j]=k; // Assigning values in the K matrix to specify the way in which matrices are multiplied
+            for (int k = i; k < j; k++) {
+                int q = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j]; // Cost of multiplication
+                if (q < min) {
+                    min = q; // Update minimum
+                    s[i][j] = k; // Store split position
                 }
             }
-            m[i][j]=min; // Assigning the m matrix the minimum number of mulitplications possible value
+            m[i][j] = min; // Store minimum multiplications
         }
-     }
-    // Display the M matrix
+    }
+
+    // Display the m matrix
     printf("M matrix:\n");
     for (int i = 1; i < n; i++) {
         for (int j = 1; j < n; j++) {
@@ -43,7 +40,7 @@ int j,q,min;
         printf("\n");
     }
 
-    // Display the S matrix
+    // Display the s matrix
     printf("S matrix (split positions):\n");
     for (int i = 1; i < n; i++) {
         for (int j = 1; j < n; j++) {
@@ -52,7 +49,7 @@ int j,q,min;
         printf("\n");
     }
 
-printf("\nMinimum number of multiplications is: %d\n\n ",m[1][n-1]);
+    printf("\nMinimum number of multiplications is: %d\n", m[1][n - 1]);
 }
 
 int main() {
@@ -61,7 +58,7 @@ int main() {
     scanf("%d", &n);
 
     int d[n + 1];
-    printf("Enter dimensions for each matrix(d1,d2,...,dn):\n");
+    printf("Enter dimensions for each matrix (d1, d2, ..., dn):\n");
     for (int i = 0; i < n + 1; i++) {
         printf("Enter dimension #%d: ", i + 1);
         scanf("%d", &d[i]);
