@@ -5,13 +5,13 @@ def set_title(row,column):
         return
     global currentPlayer
     
-    # Taken spot
+   
     if board[row][column]["text"] != "": 
         return
     
     board[row][column]["text"] = currentPlayer
     
-    #switch player
+    
     if currentPlayer == playerO:
         currentPlayer = playerX
     else:
@@ -19,14 +19,14 @@ def set_title(row,column):
 
     label["text"] = currentPlayer+"'s turn"
 
-    # check winner
+    
     check_winner()
 
 def check_winner():
     global turns, game_over
     turns += 1
 
-    # horizontally check 3 rows
+    
     for row in range(3):
         if board[row][0]["text"]== board[row][1]["text"] == board[row][2]["text"] and board[row][0]["text"]!="":
             label.config(text=board[row][0]["text"]+" is the winner!", foreground=color_yellow)
@@ -35,7 +35,7 @@ def check_winner():
             game_over = True
             return
         
-    # vertically check 3 columns
+    
     for column in range(3):
         if board[0][column]["text"] == board[1][column]["text"] == board[2][column]["text"] and board[0][column]["text"] != "":
             label.config(text=board[0][column]["text"]+" is the winner!", foreground=color_yellow)
@@ -44,7 +44,7 @@ def check_winner():
             game_over = True
             return
         
-    # Diagonally check
+    
     if board[0][0]["text"] == board[1][1]["text"] == board[2][2]["text"] and board[0][0]["text"] !="":
         label.config(text=board[0][0]["text"]+" is the winner!", foreground=color_yellow)
         for i in range(3):
@@ -52,7 +52,7 @@ def check_winner():
         game_over = True
         return
     
-     #anti-diagionally
+     
     if (board[0][2]["text"] == board[1][1]["text"] == board[2][0]["text"]
         and board[0][2]["text"] != ""):
         label.config(text=board[0][2]["text"]+" is the winner!", foreground=color_yellow)
@@ -63,7 +63,7 @@ def check_winner():
         return
     
     
-    #tie
+    
     if (turns == 9):
         game_over = True
         label.config(text="Tie!", foreground=color_yellow)
