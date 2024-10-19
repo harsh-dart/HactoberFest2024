@@ -46,22 +46,17 @@ class Solution:
 # Test cases
 solution = Solution()
 
-# Example 1
-print(solution.isNumber("0"))  # Output: True
+# Example test cases
+print(solution.isNumber("0"))        # Output: True
+print(solution.isNumber("e"))        # Output: False
+print(solution.isNumber("."))        # Output: False
+print(solution.isNumber("3.14"))     # Output: True
+print(solution.isNumber("-42"))      # Output: True
+print(solution.isNumber("1e10"))     # Output: True
+print(solution.isNumber("1E-10"))    # Output: True
+print(solution.isNumber("+.8"))       # Output: True
+print(solution.isNumber("-.5e2"))     # Output: True
+print(solution.isNumber("+-5"))       # Output: False
+print(solution.isNumber("12e"))       # Output: False
+print(solution.isNumber("1.2.3"))     # Output: False
 
-# Example 2
-print(solution.isNumber("e"))  # Output: False
-
-# Example 3
-print(solution.isNumber("."))  # Output: False
-
-# Additional test cases
-print(solution.isNumber("3.14"))  # Output: True
-print(solution.isNumber("-42"))    # Output: True
-print(solution.isNumber("1e10"))   # Output: True
-print(solution.isNumber("1E-10"))  # Output: True
-print(solution.isNumber("+.8"))     # Output: True
-print(solution.isNumber("-.5e2"))   # Output: True
-print(solution.isNumber("+-5"))     # Output: False
-print(solution.isNumber("12e"))      # Output: False
-print(solution.isNumber("1.2.3"))   # Output: False
