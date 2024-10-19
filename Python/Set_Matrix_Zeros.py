@@ -6,27 +6,31 @@ class Solution:
         if not matrix:
             return
         
-        # Step 2: Get the dimensions of the matrix
         rows, cols = len(matrix), len(matrix[0])
+        # Step 2: Use the first row and first column as markers
+        row_zero = any(matrix[0][col] == 0 for col in range(cols))
+        col_zero = any(matrix[row][0] == 0 for row in range(rows))
         
-        # Step 3: Create a deep copy of the original matrix
-        copy_matrix = [row[:] for row in matrix]
-        
-        # Step 4: Traverse the original matrix to find zeros
-        for row in range(rows):
-            for col in range(cols):
+        # Step 3: Mark zeros in the first row and first column
+        for row in range(1, rows):
+            for col in range(1, cols):
                 if matrix[row][col] == 0:
-                    # Step 5: Mark the entire row with zeros in the copied matrix
-                    for k in range(cols):
-                        copy_matrix[row][k] = 0
-                    # Step 6: Mark the entire column with zeros in the copied matrix
-                    for k in range(rows):
-                        copy_matrix[k][col] = 0
+                    matrix[row][0] = 0
+                    matrix[0][col] = 0
         
-        # Step 7: Copy the updated values back to the original matrix
-        for row in range(rows):
+        # Step 4: Set the elements to zero based on markers
+        for row in range(1, rows):
+            for col in range(1, cols):
+                if matrix[row][0] == 0 or matrix[0][col] == 0:
+                    matrix[row][col] = 0
+        
+        # Step 5: Handle the first row and first column
+        if row_zero:
             for col in range(cols):
-                matrix[row][col] = copy_matrix[row][col]
+                matrix[0][col] = 0
+        if col_zero:
+            for row in range(rows):
+                matrix[row][0] = 0
 
 # Test cases
 def print_matrix(matrix):
@@ -35,19 +39,17 @@ def print_matrix(matrix):
     print()
 
 # Example 1
-matrix1 = [[1,1,1], [1,0,1], [1,1,1]]
+matrix1 = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
 print("Input:")
 print_matrix(matrix1)
-
 Solution().setZeroes(matrix1)
 print("Output:")
 print_matrix(matrix1)
 
 # Example 2
-matrix2 = [[0,1,2,0], [3,4,5,2], [1,3,1,5]]
+matrix2 = [[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]]
 print("Input:")
 print_matrix(matrix2)
-
 Solution().setZeroes(matrix2)
 print("Output:")
 print_matrix(matrix2)
