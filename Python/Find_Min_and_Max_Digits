@@ -1,0 +1,7 @@
+def min_max_digits(n):
+    lis=[]
+    for i in str(n):
+        lis.append(int(i))
+    a=min(lis)
+    b=max(lis)
+    return a,b
