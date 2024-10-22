@@ -1,0 +1,12 @@
+
+TraversalBFS.java and TraversalDFS.java implement two types of tree traversals: Breadth-First Search (BFS) and Depth-First Search (DFS) respectively.
+
+1. TraversalBFS.java:
+   - This class performs BFS traversal (also known as level-order traversal) on a binary tree.
+   - BFS explores nodes level by level, starting from the root, visiting all nodes at each depth before moving to the next level.
+   - The traversal uses a queue data structure to keep track of nodes to visit. Nodes are added to the queue starting with the root. Then for each node, the left and right children are enqueued before the next node is dequeued for processing.
+
+2. TraversalDFS.java:
+   - This class performs DFS traversal on a binary tree.
+   - DFS explores as far as possible along each branch before backtracking.
+   - The implementation here is a pre-order DFS traversal where the current node is processed first, then the left subtree, followed by the right subtree. It is done recursively without any external data structure like a queue.
