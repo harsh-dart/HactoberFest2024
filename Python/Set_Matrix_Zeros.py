@@ -3,30 +3,35 @@ from typing import List
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
         # Step 1: Handle edge case for an empty matrix
-        if not matrix:
+        if not matrix or not matrix[0]:
             return
         
-        # Step 2: Get the dimensions of the matrix
         rows, cols = len(matrix), len(matrix[0])
         
-        # Step 3: Create a deep copy of the original matrix
-        copy_matrix = [row[:] for row in matrix]
+        # Step 2: Use the first row and first column as markers
+        first_row_zero = any(matrix[0][j] == 0 for j in range(cols))
+        first_col_zero = any(matrix[i][0] == 0 for i in range(rows))
         
-        # Step 4: Traverse the original matrix to find zeros
-        for row in range(rows):
-            for col in range(cols):
-                if matrix[row][col] == 0:
-                    # Step 5: Mark the entire row with zeros in the copied matrix
-                    for k in range(cols):
-                        copy_matrix[row][k] = 0
-                    # Step 6: Mark the entire column with zeros in the copied matrix
-                    for k in range(rows):
-                        copy_matrix[k][col] = 0
+        # Step 3: Mark zeros in the first row and first column
+        for i in range(1, rows):
+            for j in range(1, cols):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = 0
+                    matrix[0][j] = 0
         
-        # Step 7: Copy the updated values back to the original matrix
-        for row in range(rows):
-            for col in range(cols):
-                matrix[row][col] = copy_matrix[row][col]
+        # Step 4: Set the cells to zero based on markers
+        for i in range(1, rows):
+            for j in range(1, cols):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+        
+        # Step 5: Set the first row and first column to zero if needed
+        if first_row_zero:
+            for j in range(cols):
+                matrix[0][j] = 0
+        if first_col_zero:
+            for i in range(rows):
+                matrix[i][0] = 0
 
 # Test cases
 def print_matrix(matrix):
