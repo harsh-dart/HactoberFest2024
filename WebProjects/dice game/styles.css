@@ -1,18 +1,18 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: grey;
+    background-color: #f0f0f0; /* Lighter background for better contrast */
+    font-family: 'Arial', sans-serif; /* Consistent font across the game */
 }
 
 h1 {
-    font-family: cursive;
+    font-family: 'Cursive';
     font-size: 70px;
-    color: black;
+    color: #333; /* Darker color for better visibility */
     font-weight: 300;
     text-align: center;
     text-decoration: underline;
-    margin-top: 0;
-    padding-top: 0;
+    margin-top: 20px; /* Added margin for spacing */
 }
 
 .container {
@@ -24,35 +24,60 @@ h1 {
     margin: 20px;
     min-height: 40vh;
     gap: 70px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+    border-radius: 10px; /* Rounded corners */
+    background-color: white; /* Background for the container */
 }
 
 .dice1,
 .dice2 {
     display: flex;
     flex-direction: column;
-    object-fit: cover;
     justify-content: center;
     align-items: center;
     margin: 30px;
     padding: 20px;
-    border: 3px solid black;
+    border: 3px solid #333; /* Darker border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    transition: transform 0.2s; /* Animation for hover effect */
+}
+
+.dice1:hover,
+.dice2:hover {
+    transform: scale(1.05); /* Slight scale effect on hover */
 }
 
 .dice1 img,
 .dice2 img {
     height: 150px;
     width: 150px;
-    border-radius: 5%;
+    border-radius: 10%; /* Rounded corners for images */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Added shadow to images */
 }
 
 .dice1 p,
 .dice2 p,
 h6 {
-    font-family: cursive;
+    font-family: 'Cursive';
     font-size: 24px;
     text-align: center;
     margin: 10px 0 0 0;
     padding: 10px;
+}
+
+h6 {
+    color: #777; /* Lighter color for less emphasis */
+}
+
+.winningmessage {
+    margin-top: 20px; /* Space above the message */
+    padding: 20px; /* Padding for message */
+    border-radius: 10px; /* Rounded corners */
+    font-family: cursive;
+    font-size: 40px; /* Slightly smaller font size */
+    text-align: center;
+    color: #333; /* Dark text color for visibility */
+    background-color: yellow; /* Background color */
 }
 
 @media (max-width: 575.98px) {
