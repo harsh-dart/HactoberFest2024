@@ -1,0 +1,37 @@
+def compute_hcf(x, y):
+    # Euclidean algorithm to compute HCF
+    while y:
+        x, y = y, x % y
+    return x
+
+def compute_lcm(x, y):
+    # LCM is calculated using the formula: (x * y) // HCF(x, y)
+    hcf = compute_hcf(x, y)
+    return (x * y) // hcf
+
+def main():
+    # Input two numbers with error handling
+    try:
+        num1 = int(input("Enter first number: "))
+        num2 = int(input("Enter second number: "))
+        
+        # Ensure the numbers are positive
+        if num1 <= 0 or num2 <= 0:
+            print("Please enter positive integers.")
+            return
+        
+        # Calculate HCF and LCM
+        hcf = compute_hcf(num1, num2)
+        lcm = compute_lcm(num1, num2)
+
+        # Display the results
+        print(f"The HCF of {num1} and {num2} is: {hcf}")
+        print(f"The LCM of {num1} and {num2} is: {lcm}")
+        
+    except ValueError:
+        print("Invalid input! Please enter integer values.")
+
+# Run the main function
+if __name__ == "__main__":
+    main()
+
